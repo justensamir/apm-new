@@ -1,0 +1,53 @@
+<div class="card container mt-5 p-0 round">
+    <div class="cardheader bg-secondary text-white px-3 py-4 text-center fs-3">
+        Products List
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2">
+                Filter by: 
+            </div>
+            <div class="col-md-4">
+                <input type="text" [(ngModel)] ='listFilter' name="" id="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="h4">Filtered by: {{listFilter}}</div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr> 
+                        <th>
+                            <button class="btn btn-primary" (click)="toggleImg()">
+                                {{showImg? 'Hide' : 'Show'}} Image
+                            </button>
+                        </th>
+                        <th>Product</th>
+                        <th>Code</th>
+                        <th>Avaliable</th>
+                        <th>Price</th>
+                        <th>5 Star Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of filteredProductList">
+                        <td class="d-flex justify-content-center align-items-center">
+                            <img *ngIf="showImg" 
+                                    [src]='product?.img' 
+                                    [style.width.px]="imgWidth"
+                                    [style.height.px]="imgHeight">
+                        </td>
+                        <td>{{product?.name}}</td>
+                        <td>{{product.code | lowercase | convertToSpaces:'-'}}</td>
+                        <td>{{product?.avilable | date:'longDate'}}</td>
+                        <td>{{product?.price | currency:'USD':'symbol':'1.2-2'}}</td>
+                        <td>{{product?.rate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,36 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { IProduct } from './product';
+import { ProductService } from 'src/app/services/product.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'pm-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   
   imgWidth: number = 80;
   imgHeight: number = 80;
   showImg: boolean = true;
-  filteredProductList: IProduct[] = []
-  products: IProduct[] = [
-    {
-      img: 'assets/images/bluebery.jpg',
-      name: 'product1',
-      code: 'GDN-0023-0-',
-      avilable: new Date(2021,2,18),
-      price: 39.5,
-      rate: 5,
-    },
-    {
-      img: 'assets/images/honey.jpg',
-      name: 'product2',
-      code: 'TBX-0048-1-',
-      avilable: new Date(2021,2,21),
-      price: 39.555,
-      rate: 5,
-    },
-  ];
-  private _listFilter: string = ''
+  prodctTitle: string = 'Products List';
+  filteredProductList: IProduct[] = [];
+  products: IProduct[] = [];
+  private _listFilter: string = '';
+  errorMessage: string = '';
+  sub!: Subscription;
+
+  constructor(private productService:ProductService){
+    
+  }
+  
+  ngOnInit(): void {
+    this.sub = this.productService.getProducts().subscribe({
+      next: products => { 
+        this.products = products; 
+        this.filteredProductList = this.products;
+      },
+      error: err => this.errorMessage = err,
+
+      complete: () => console.log('Getting products completed successfully')
+      
+    });
+    
+    console.log('From OnInit Product list Component')
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
+  }
 
   get listFilter() : string{
     return this._listFilter
@@ -48,10 +59,6 @@ export class ProductListComponent implements OnInit {
     console.log(this.filteredProductList)
   }
 
-  ngOnInit(): void {
-    this.filteredProductList = this.products
-    console.log('From OnInit Product list Component')
-  }
 
   toggleImg(): void {
     this.showImg = !this.showImg;
@@ -62,5 +69,9 @@ export class ProductListComponent implements OnInit {
     return this.products.filter((product: IProduct) => 
       product.name.toLocaleLowerCase().includes(filteredBy)
     )
+  }
+
+  onRatingClicked(message: string): void {
+    this.prodctTitle = `Products List ${message}`
   }
 }

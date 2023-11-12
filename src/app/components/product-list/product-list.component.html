@@ -1,6 +1,6 @@
 <div class="card container mt-5 p-0 round">
     <div class="cardheader bg-secondary text-white px-3 py-4 text-center fs-3">
-        Products List
+        {{prodctTitle}}
     </div>
     <div class="card-body">
         <div class="row">
@@ -44,7 +44,10 @@
                         <td>{{product.code | lowercase | convertToSpaces:'-'}}</td>
                         <td>{{product?.avilable | date:'longDate'}}</td>
                         <td>{{product?.price | currency:'USD':'symbol':'1.2-2'}}</td>
-                        <td>{{product?.rate}}</td>
+                        <td><pm-stars 
+                            class="d-flex justify-content-center" 
+                            [rating]="product.rate"
+                            (ratingClicked)="onRatingClicked($event)" ></pm-stars></td>
                     </tr>
                 </tbody>
             </table>

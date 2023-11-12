@@ -1,0 +1,26 @@
+[
+  {
+    "img": "assets/images/bluebery.jpg",
+    "name": "product1",
+    "code": "GDN-0023",
+    "avilable": "March 19, 2021",
+    "price": 39.5,
+    "rate": 3.5
+  },
+  {
+    "img": "assets/images/honey.jpg",
+    "name": "product2",
+    "code": "TBX-0048",
+    "avilable": "March 21, 2021",
+    "price": 39.555,
+    "rate": 4.3
+  },
+  {
+    "img": "assets/images/honey.jpg",
+    "name": "honey",
+    "code": "TBX-20",
+    "avilable": "March 28, 2021",
+    "price": 39.555,
+    "rate": 3.8
+  }
+]

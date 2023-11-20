@@ -1,5 +1,6 @@
 [
   {
+    "id" : 1,
     "img": "assets/images/bluebery.jpg",
     "name": "product1",
     "code": "GDN-0023",
@@ -8,6 +9,7 @@
     "rate": 3.5
   },
   {
+    "id" : 2,
     "img": "assets/images/honey.jpg",
     "name": "product2",
     "code": "TBX-0048",
@@ -16,6 +18,7 @@
     "rate": 4.3
   },
   {
+    "id" : 3,
     "img": "assets/images/honey.jpg",
     "name": "honey",
     "code": "TBX-20",

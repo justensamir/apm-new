@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IProduct } from '../components/product-list/product';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, tap, throwError } from 'rxjs';
+import { IProduct } from '../components/products/IProduct';
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +17,10 @@ export class ProductService {
         tap(data => console.log('All: ', JSON.stringify(data))),
         catchError(this.handleError)
       );
+  }
+
+  getProduct(id: number): Observable<IProduct>{
+    return this.http.get<IProduct>(`${this.productUrl}/${id}`);
   }
 
   private handleError(err: HttpErrorResponse) {
